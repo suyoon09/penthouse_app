@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+            crossorigin="anonymous"
+        />
+        <title>펜트하우스 닮은꼴 찾기</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light nav-distance">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">펜트하우스 닮은꼴 캐릭터</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="https://www.youtube.com/channel/UC8NHGSDWgc-le3-lseZ1Keg"
+                                >한량아 유튜브</a
+                            >
+                        </li>
+						<li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="https://topweb101.com/"
+                                >Topweb101</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section class="container d-flex flex-column justify-content-center align-items-center">
+            <span class="select-language">Language</span>
+            <select onchange="changeLanguage(this)" class="custom-select col-8">
+                <option value="ko" lang="ko">한국어</option>
+                <option value="en" lang="en">English</option>
+                <option value="es" lang="es">español</option>
+                <option value="ja" lang="ja">日本語</option>
+                <option value="zh" lang="zh">中文</option>
+                <option value="vi" lang="vi">tiếng Việt</option>
+                <option value="id" lang="id">Bahasa Indonesia</option>
+                <option value="it" lang="it">Italiano</option>
+                <option value="th" lang="th">ไทย</option>
+            </select>
+        </section>
+        <!-- <script>
+            var ua = navigator.userAgent.toLowerCase();
+            function changeLanguage(lang) {
+                if (
+                    (navigator.userAgent.indexOf('Mac OS') > 0 &&
+                        navigator.userAgent.indexOf('Safari') <= 0) ||
+                    (navigator.userAgent.indexOf('Android') > 0 &&
+                        navigator.userAgent.indexOf('wv)') > 0)
+                ) {
+                    if (ua.match('android') != null) {
+                        window.open(
+                            'googlechrome://navigate?url=animalface.site/' +
+                                lang.value +
+                                '/index.html'
+                        ); //android
+                    } else if (
+                        ua.indexOf('iphone') > -1 ||
+                        ua.indexOf('ipad') > -1 ||
+                        ua.indexOf('ipod') > -1
+                    ) {
+                        window.location.href =
+                            'https://animalface.site/' + lang.value + '/index.html';
+                    } else {
+                        window.location.href =
+                            'https://animalface.site/' + lang.value + '/index.html';
+                    }
+                } else {
+                    window.location.href = 'https://animalface.site/' + lang.value + '/index.html';
+                }
+            }
+        </script> -->
+        <section class="section">
+            <h1 class="title">인공지능 캐릭터 매칭</h1>
+            <h2 class="subtitle">나에게 어울리는 펜트하우스 캐릭터는?</h2>
+        </section>
+
+        <div class="mb-5 container file-upload">
+            <div class="image-upload-wrap">
+                <input
+                    class="file-upload-input"
+                    type="file"
+                    onchange="readURL(this);"
+                    accept="image/*"
+                />
+                <div class="drag-text">
+                    <img src="img/arrow-upload-icon.png" class="mt-5 upload" />
+                    <h3 class="mb-5 upload-text">얼굴 사진을 올려주세요!</h3>
+                </div>
+            </div>
+            <div class="file-upload-content">
+                <img class="file-upload-image" id="face-image" src="#" alt="your image" />
+                <div id="loading" class="animated bounce" style="display: none;">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <p class="text-center">AI가 당신의 사진을 분석중입니다.</p>
+                </div>
+                <div id="label-container" class="d-flex flex-column justify-content-around"></div>
+                <p class="result-message"></p>
+
+                <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">
+                        다른 사진 사용하기
+                        <!-- <span class="image-title"></span> -->
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script
+            class="jsbin"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
+        ></script>
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('.image-upload-wrap').hide();
+                        $('.file-upload-image').attr('src', e.target.result);
+                        $('.file-upload-content').show();
+                        $('.image-title').html(input.files[0].name);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                    init().then(function () {
+                        console.log('hello');
+                        predict();
+                    });
+                } else {
+                    removeUpload();
+                }
+            }
+            function removeUpload() {
+                $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+                $('.file-upload-content').hide();
+                $('.image-upload-wrap').show();
+            }
+            $('.image-upload-wrap').bind('dragover', function () {
+                $('.image-upload-wrap').addClass('image-dropping');
+            });
+            $('.image-upload-wrap').bind('dragleave', function () {
+                $('.image-upload-wrap').removeClass('image-dropping');
+            });
+        </script>
+
+        <script type="text/javascript">
+            // More API functions here:
+            // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+            // the link to your model provided by Teachable Machine export panel
+            const URL = 'https://teachablemachine.withgoogle.com/models/CRPcnL1WW/';
+
+            let model, webcam, labelContainer, maxPredictions;
+
+            // Load the image model and setup the webcam
+            async function init() {
+                const modelURL = URL + 'model.json';
+                const metadataURL = URL + 'metadata.json';
+
+                // load the model and metadata
+                // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+                // or files from your local hard drive
+                // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+                // append elements to the DOM
+                labelContainer = document.getElementById('label-container');
+                for (let i = 0; i < maxPredictions; i++) {
+                    // and class labels
+                    labelContainer.appendChild(document.createElement('div'));
+                }
+            }
+            // run the webcam image through the image model
+            async function predict() {
+                // predict can take in an image, video or canvas html element
+                var image = document.getElementById('face-image');
+                const prediction = await model.predict(image, false);
+                prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
+                console.log(prediction[0].className);
+                var resultTitle, resultMessage;
+                switch (prediction[0].className) {
+                    case '심수련':
+                        resultTitle = '심수련';
+                        resultMessage =
+                            '모두의 시선을 집중시키는 당신은 명실상부 인생의 주인공! 아름다운 외모만큼이나 성품이 온화하고 사랑에 있어선 저돌적으로 변하는 매력적인 사람';
+                        break;
+                    case '하윤철':
+                        resultTitle = '하윤철';
+                        resultMessage =
+                            '현실에 적당히 타협할 줄 아는 인물로 사람을 계급에 따라 나누어 대하는 처세술의 끝판왕. 역시 남자는 돈과 권력을 쥐고 있어야 한다는 야망남. 사려 깊음보다는 손익 계산을, 노력보다는 실력을 추구하는 현실파';
+                        break;
+                    case '오윤희':
+                        resultTitle = '오윤희';
+                        resultMessage =
+                            '오윤희 : 내 딸만큼은 돈 때문에 설움 받지 않아야 하고, 차별당하지 않아야 하고, 기죽어선 안 된다! 그러려면, 돈이 있어야 한다. 현실판 캔디';
+                        break;
+                    case '강마리':
+                        resultTitle = '강마리';
+                        resultMessage = '강마리';
+                        break;
+                    case '이규진':
+                        resultTitle = '이규진';
+                        resultMessage = '이규진';
+                        break;
+                    case '천서진':
+                        resultTitle = '천서진';
+                        resultMessage =
+                            '타고난 금수저. 주변인을 모두 휘어 잡는 타고난 여왕벌. 자신이 세상의 중심이어야 하며, 원하는 것은 어떻게든 손에 넣는다. 스포트라이트는 항상 당신을 비추고 있다';
+                        break;
+                    case '구호동':
+                        resultTitle = '구호동';
+                        resultMessage =
+                            '구호동 : 꼬질꼬질한 차림새에 역사를 거스르는 패션 스타일. 후줄근한 운동복 패션에 누렇게 변색된 치아. 패션을 역행하는 잠자리 안경까지. 이상할 만큼 남의 시선을 신경쓰지 않는 당신은 미스테리남';
+                        break;
+                    case '주단태':
+                        resultTitle = '주단태';
+                        resultMessage = '주단태';
+                        break;
+                    default:
+                        resultTitle = '알수없음';
+                        resultMessage = '';
+                }
+                var title = "<div class='charName'>" + resultTitle + '</div>';
+                var explain = "<div class='charExplain pt-2'>" + resultMessage + '</div>';
+                $('.result-message').html(title + explain);
+                var barWidth;
+                for (let i = 0; i < maxPredictions; i++) {
+                    barWidth = Math.round(prediction[0].probability.toFixed(2) * 100) + '%';
+                }
+                // var labelTitle;
+                // switch (prediction[0].className) {
+                // 	case "천서진"
+                // 		labelTitle = "천서진"
+                // 		break;
+                // 	case "오윤희":
+                // 		labelTitle = "오윤희"
+                // 		break;
+                // 	case "심수련"
+                // 		labelTitle = "심수련"
+                // 		break;
+                // 	case "구호동":
+                // 		labelTitle = "구호동"
+                // 		break;
+                // 	case "주단태"
+                // 		labelTitle = "주단태"
+                // 		break;
+                // 	case "강마리":
+                // 		labelTitle = "강마리"
+                // 		break;
+                // 	case "이규진"
+                // 		labelTitle = "이규진"
+                // 		break;
+                // 	case "하윤철":
+                // 		labelTitle = "하윤철"
+                // 		break;
+                // }
+                // var label = "<div class='char-label d-flex align-items-center'>" + labelTitle + "</div>"
+                var bar =
+                    "<div class='bar-container position-relative container'><div class='" +
+                    prediction[0].className +
+                    "-box'></div><div class='d-flex justify-content-center align-items-center " +
+                    prediction[0].className +
+                    "-bar' style=width: " +
+                    barWidth +
+                    "'><span class='d-block percent-text'>" +
+                    Math.round(prediction[0].probability.toFixed(2) * 100) +
+                    '%</span></div></div>';
+                labelContainer.childNodes[0].innerHTML = bar;
+
+                // const classPrediction =
+                // prediction[0].className + ": " + prediction[0].probability.toFixed(2);
+                // labelContainer.childNodes[0].innerHTML = classPrediction;
+            }
+        </script>
+
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+            (function () {
+                // DON'T EDIT BELOW THIS LINE
+                var d = document,
+                    s = d.createElement('script');
+                s.src = 'https://suyoon09.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript
+            >Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript
+        >
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"
+        ></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    </body>
+</html>
