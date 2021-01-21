@@ -1,10 +1,11 @@
 body {
-	font-family: sans-serif;
+	font-family: 'Jua', sans-serif;
 	background-color: #ffffff;
 }
 
 .section {
-	margin-top: 100px;
+	margin-top: 30px;
+	font-family: 'Jua', sans-serif;
 }
 
 .title {
@@ -34,7 +35,7 @@ body {
 .file-upload {
 	background-color: #ffffff;
 	margin: 0 auto;
-	padding: 15% 3%;
+	padding: 5% 3%;
 	/* height: 105vw; */
 	border-radius: 10px;
 	border: solid 1.5px #f6f7fa;
@@ -109,7 +110,7 @@ body {
 }
 
 .image-title-wrap {
-	padding: 0 15px 15px 15px;
+	/* padding: 0 15px 15px 15px; */
 	color: #222;
 }
 
@@ -125,10 +126,12 @@ body {
 }
 
 .file-upload-image {
-	max-height: 200px;
 	max-width: 200px;
 	margin: auto;
-	padding: 20px;
+	padding-right: 20px;
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .remove-image {
@@ -139,7 +142,7 @@ body {
 	border: none;
 	padding: 10px;
 	border-radius: 4px;
-	border-bottom: 4px solid #b02818;
+	/* border-bottom: 4px solid #b02818; */
 	transition: all 0.2s ease;
 	outline: none;
 	text-transform: uppercase;
@@ -183,41 +186,51 @@ body {
 	font-size: 1.5rem;
 }
 
+.h1 {
+	font-family: 'Jua', sans-serif;
+}
+
+.h2 {
+	font-family: 'Jua', sans-serif;
+}
+
 .h3, h3 {
     font-size: calc(2rem);
+}
+
+.h4 {
+	font-family: 'Jua', sans-serif;
 }
 
 .classPrediction {
 	padding: 30px 0;
 }
 
-.charName {
-	color: #9c27b0;
+.result-image {
+	max-width: 200px;
+	margin: auto;
+	padding-right: 20px;
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .charExplain {
 	font-size: 1.5rem;
-	font-family: 'Jua', sans-serif;
+	font-family: 'Stylish', sans-serif;
 }
 
-.bar-container {
-	position: absolute;
-	height: 2rem;
-	width: 100%;
-	background-color: #3778b1
+.charName {
+	font-size: 2.5rem;
+	color: #9c27b0;
 }
 
-.spinner-border {
-	display: inline-block;
-    width: 2rem;
-    height: 2rem;
-    vertical-align: text-bottom;
-    border: .25em solid currentColor;
-    border-right-color: transparent;
-    border-radius: 50%;
-    animation: spinner-border .75s linear infinite;
+.charPercent {
+	font-size: 2.5rem;
+	font-family: 'Black Han Sans', sans-serif;
+	color: #9c27b0;
 }
 
-.text-center {
-    text-align: center!important;
+.at-share-btn-elements {
+	padding-top: 15px;
 }

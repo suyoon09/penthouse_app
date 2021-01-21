@@ -11,6 +11,8 @@
             integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
             crossorigin="anonymous"
         />
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Stylish&display=swap" rel="stylesheet">
         <title>펜트하우스 닮은꼴 찾기</title>
         <link rel="stylesheet" href="style.css" />
     </head>
@@ -42,12 +44,8 @@
                                 >한량아 유튜브</a
                             >
                         </li>
-						<li class="nav-item">
-                            <a
-                                class="nav-link"
-                                href="https://topweb101.com/"
-                                >Topweb101</a
-                            >
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://topweb101.com/">Topweb101</a>
                         </li>
                     </ul>
                 </div>
@@ -67,7 +65,7 @@
                 <option value="th" lang="th">ไทย</option>
             </select>
         </section>
-        <!-- <script>
+        <script>
             var ua = navigator.userAgent.toLowerCase();
             function changeLanguage(lang) {
                 if (
@@ -78,7 +76,7 @@
                 ) {
                     if (ua.match('android') != null) {
                         window.open(
-                            'googlechrome://navigate?url=animalface.site/' +
+                            'googlechrome://navigate?url=penthouseapp.netlify.app/' +
                                 lang.value +
                                 '/index.html'
                         ); //android
@@ -88,16 +86,25 @@
                         ua.indexOf('ipod') > -1
                     ) {
                         window.location.href =
-                            'https://animalface.site/' + lang.value + '/index.html';
+                            'https://penthouseapp.netlify.app/' + lang.value + '/index.html';
                     } else {
                         window.location.href =
-                            'https://animalface.site/' + lang.value + '/index.html';
+                            'https://penthouseapp.netlify.app/' + lang.value + '/index.html';
                     }
                 } else {
-                    window.location.href = 'https://animalface.site/' + lang.value + '/index.html';
+                    window.location.href =
+                        'https://penthouseapp.netlify.app/' + lang.value + '/index.html';
                 }
             }
-        </script> -->
+        </script>
+        <ins
+            class="kakao_ad_area"
+            style="display: none; padding-top: 30px;"
+            data-ad-unit="DAN-Xsvz1YqM9s8rl0yw"
+            data-ad-width="320"
+            data-ad-height="100"
+        ></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         <section class="section">
             <h1 class="title">인공지능 캐릭터 매칭</h1>
             <h2 class="subtitle">나에게 어울리는 펜트하우스 캐릭터는?</h2>
@@ -119,22 +126,33 @@
             <div class="file-upload-content">
                 <img class="file-upload-image" id="face-image" src="#" alt="your image" />
                 <div id="loading" class="animated bounce" style="display: none;">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <p class="text-center">AI가 당신의 사진을 분석중입니다.</p>
-                </div>
-                <div id="label-container" class="d-flex flex-column justify-content-around"></div>
+                	<div class="spinner-border" role="status">
+                    	<span class="sr-only">Loading...</span>
+                	</div>
+                	<p class="text-center">AI가 당신의 동물상을 분석중입니다.</p>
+            	</div>
                 <p class="result-message"></p>
-
+				<div id="label-container" class="d-flex flex-column justify-content-around"></div>
                 <div class="image-title-wrap">
                     <button type="button" onclick="removeUpload()" class="remove-image">
                         다른 사진 사용하기
                         <!-- <span class="image-title"></span> -->
                     </button>
+				
+                <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                <div class="addthis_inline_share_toolbox_tlta"></div>
+            
                 </div>
             </div>
         </div>
+		
+		<section id="yotube-bottom-link" class="mt-2 d-flex flex-column justify-content-center align-items-center" onclick="gtag('event', '한량아 유튜브 클릭', {'event_category': '한량아 유튜브 클릭','event_label': '하단 광고1'});">
+        <a href="https://www.youtube.com/channel/UC8NHGSDWgc-le3-lseZ1Keg" class="d-flex flex-column justify-content-center align-items-center">
+            <img class="ad-banner" src="img/youtube_img.png" alt="유튜브 홍보">
+            <h4 class="mt-1 text-center">돈이 되는 아이디어, 한량아 채널에서 확인!</h4>
+        </a>
+    </section>
+		
         <script
             class="jsbin"
             src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
@@ -170,7 +188,7 @@
                 $('.image-upload-wrap').removeClass('image-dropping');
             });
         </script>
-
+ 
         <script type="text/javascript">
             // More API functions here:
             // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
@@ -205,100 +223,110 @@
                 const prediction = await model.predict(image, false);
                 prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
                 console.log(prediction[0].className);
-                var resultTitle, resultMessage;
+                var resultTitle, resultMessage, resultImage;
                 switch (prediction[0].className) {
                     case '심수련':
                         resultTitle = '심수련';
                         resultMessage =
                             '모두의 시선을 집중시키는 당신은 명실상부 인생의 주인공! 아름다운 외모만큼이나 성품이 온화하고 사랑에 있어선 저돌적으로 변하는 매력적인 사람';
+						resultImage = '<img src=img/SSR.JPG class="result-image" />';
                         break;
                     case '하윤철':
                         resultTitle = '하윤철';
                         resultMessage =
                             '현실에 적당히 타협할 줄 아는 인물로 사람을 계급에 따라 나누어 대하는 처세술의 끝판왕. 역시 남자는 돈과 권력을 쥐고 있어야 한다는 야망남. 사려 깊음보다는 손익 계산을, 노력보다는 실력을 추구하는 현실파';
+						resultImage = '<img src=img/HYC.JPG class="result-image" />';
                         break;
                     case '오윤희':
                         resultTitle = '오윤희';
                         resultMessage =
-                            '오윤희 : 내 딸만큼은 돈 때문에 설움 받지 않아야 하고, 차별당하지 않아야 하고, 기죽어선 안 된다! 그러려면, 돈이 있어야 한다. 현실판 캔디';
+                            '내 딸만큼은 돈 때문에 설움 받지 않아야 하고, 차별당하지 않아야 하고, 기죽어선 안 된다! 그러려면, 돈이 있어야 한다. 현실판 캔디';
+						resultImage = '<img src=img/OYH.JPG class="result-image" />';
                         break;
                     case '강마리':
                         resultTitle = '강마리';
-                        resultMessage = '강마리';
+                        resultMessage = '개처럼 벌어서 정승처럼 쓰자는게 인생의 모토. 다혈질적으로 보이지만 알고보면 냉철하고 계산적이다. ';
+						resultImage = '<img src=img/KMR.JPG class="result-image" />';
                         break;
                     case '이규진':
                         resultTitle = '이규진';
-                        resultMessage = '이규진';
+                        resultMessage = '허세뿐인 속빈 강정 마마보이. 찌질함의 끝판왕. 스스로 할 줄 아는 건 없고 결정장애가 있다';
+						resultImage = '<img src=img/LGJ.JPG class="result-image" />';
                         break;
                     case '천서진':
                         resultTitle = '천서진';
                         resultMessage =
                             '타고난 금수저. 주변인을 모두 휘어 잡는 타고난 여왕벌. 자신이 세상의 중심이어야 하며, 원하는 것은 어떻게든 손에 넣는다. 스포트라이트는 항상 당신을 비추고 있다';
+						resultImage = '<img src=img/CSJ.JPG class="result-image" />';
                         break;
                     case '구호동':
                         resultTitle = '구호동';
                         resultMessage =
-                            '구호동 : 꼬질꼬질한 차림새에 역사를 거스르는 패션 스타일. 후줄근한 운동복 패션에 누렇게 변색된 치아. 패션을 역행하는 잠자리 안경까지. 이상할 만큼 남의 시선을 신경쓰지 않는 당신은 미스테리남';
+                            '꼬질꼬질한 차림새에 역사를 거스르는 패션 스타일. 후줄근한 운동복 패션에 누렇게 변색된 치아. 패션을 역행하는 잠자리 안경까지. 이상할 만큼 남의 시선을 신경쓰지 않는 당신은 미스테리남';
+						resultImage = '<img src=img/GHD.JPG class="result-image" />';
                         break;
                     case '주단태':
                         resultTitle = '주단태';
-                        resultMessage = '주단태';
+                        resultMessage = '귀신같이 돈 냄새를 맡을 줄 아는 타고난 투자의 귀재. 한 치의 흐트러짐이나 구설도 용납하지 않는 완벽주의자 기질이 있다. 주변인에겐 냉정하지만 밖에선 완벽한 모습만 보이고자한다';
+						resultImage = '<img src=img/JDT.JPG class="result-image" />';
                         break;
                     default:
                         resultTitle = '알수없음';
                         resultMessage = '';
                 }
-                var title = "<div class='charName'>" + resultTitle + '</div>';
+			
+                var rimage = "<div class='charImage'>" + resultImage + '</div>';
+				var title = "<div class='charName'>" + resultTitle + '</div>';
                 var explain = "<div class='charExplain pt-2'>" + resultMessage + '</div>';
-                $('.result-message').html(title + explain);
                 var barWidth;
                 for (let i = 0; i < maxPredictions; i++) {
-                    barWidth = Math.round(prediction[0].probability.toFixed(2) * 100) + '%';
-                }
-                // var labelTitle;
-                // switch (prediction[0].className) {
-                // 	case "천서진"
-                // 		labelTitle = "천서진"
-                // 		break;
-                // 	case "오윤희":
-                // 		labelTitle = "오윤희"
-                // 		break;
-                // 	case "심수련"
-                // 		labelTitle = "심수련"
-                // 		break;
-                // 	case "구호동":
-                // 		labelTitle = "구호동"
-                // 		break;
-                // 	case "주단태"
-                // 		labelTitle = "주단태"
-                // 		break;
-                // 	case "강마리":
-                // 		labelTitle = "강마리"
-                // 		break;
-                // 	case "이규진"
-                // 		labelTitle = "이규진"
-                // 		break;
-                // 	case "하윤철":
-                // 		labelTitle = "하윤철"
-                // 		break;
-                // }
-                // var label = "<div class='char-label d-flex align-items-center'>" + labelTitle + "</div>"
-                var bar =
-                    "<div class='bar-container position-relative container'><div class='" +
-                    prediction[0].className +
-                    "-box'></div><div class='d-flex justify-content-center align-items-center " +
-                    prediction[0].className +
-                    "-bar' style=width: " +
-                    barWidth +
-                    "'><span class='d-block percent-text'>" +
-                    Math.round(prediction[0].probability.toFixed(2) * 100) +
-                    '%</span></div></div>';
-                labelContainer.childNodes[0].innerHTML = bar;
+					barWidth = "<div class='charPercent'>" + Math.round(prediction[0].probability.toFixed(2) * 100) + '%' + '</div>';
+				}
+				$('.result-message').html(rimage + barWidth + title + explain);
+			}
+            // var labelTitle;
+            // switch (prediction[0].className) {
+            // 	case "천서진"
+            // 		labelTitle = "천서진"
+            // 		break;
+            // 	case "오윤희":
+            // 		labelTitle = "오윤희"
+            // 		break;
+            // 	case "심수련"
+            // 		labelTitle = "심수련"
+            // 		break;
+            // 	case "구호동":
+            // 		labelTitle = "구호동"
+            // 		break;
+            // 	case "주단태"
+            // 		labelTitle = "주단태"
+            // 		break;
+            // 	case "강마리":
+            // 		labelTitle = "강마리"
+            // 		break;
+            // 	case "이규진"
+            // 		labelTitle = "이규진"
+            // 		break;
+            // 	case "하윤철":
+            // 		labelTitle = "하윤철"
+            // 		break;
+            // }
+            // var label = "<div class='char-label d-flex align-items-center'>" + labelTitle + "</div>"
+            // var bar =
+            //     "<div class='bar-container position-relative container'><div class='" +
+            //     prediction[0].className +
+            //     "-box'></div><div class='d-flex justify-content-center align-items-center " +
+            //     prediction[0].className +
+            //     "-bar' style=width: " +
+            //     barWidth +
+            //     "'><span class='d-block percent-text'>" +
+            //     Math.round(prediction[0].probability.toFixed(2) * 100) +
+            //     '%</span></div></div>';
+            // labelContainer.childNodes[0].innerHTML = bar;
 
-                // const classPrediction =
-                // prediction[0].className + ": " + prediction[0].probability.toFixed(2);
-                // labelContainer.childNodes[0].innerHTML = classPrediction;
-            }
+            // const classPrediction =
+            // prediction[0].className + ": " + prediction[0].probability.toFixed(2);
+            // labelContainer.childNodes[0].innerHTML = classPrediction;
         </script>
 
         <div id="disqus_thread"></div>
@@ -330,8 +358,23 @@
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"
         ></script>
-
+        <footer class="footer pt-5 container d-flex justify-content-center">
+            <div>
+                <p>© Topweb101 2020. All Rights Reserved.</p>
+                <ul id="moreInfo" class="list-inline d-flex justify-content-center">
+                    <li class="list-inline-item">
+                        <a href="https://topweb101.com/privacy-policy/">Privacy</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://topweb101.com/">About</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+		<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6008ba2decc2f4d5"></script>
+
     </body>
 </html>
